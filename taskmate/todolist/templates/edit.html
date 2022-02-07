@@ -11,6 +11,7 @@
       {% csrf_token %}
       <div class="mb-3">
         <input type="text" name="task" class="form-control" id="task" aria-describedby="add task" placeholder="Edit Task" value = "{{task.task}}">
+          <input type="hidden" name="done"  id="done"  value = "{{task.done}}">
       </div>
       <button type="submit" class="btn btn-primary">Edit Task</button>
     </form>
