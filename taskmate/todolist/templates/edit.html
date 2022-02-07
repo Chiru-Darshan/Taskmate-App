@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Task Manager - Edit Task </title>
+{% endblock title %}
+
+{% block content %}
+    <br/>
+    <br/>
+  <form method="POST">
+      {% csrf_token %}
+      <div class="mb-3">
+        <input type="text" name="task" class="form-control" id="task" aria-describedby="add task" placeholder="Edit Task" value = "{{task.task}}">
+      </div>
+      <button type="submit" class="btn btn-primary">Edit Task</button>
+    </form>
+{% endblock content %}
