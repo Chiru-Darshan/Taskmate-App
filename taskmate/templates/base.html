@@ -24,7 +24,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'todoList' %}">Todo List</a>
@@ -37,7 +37,22 @@
         </li>
       </ul>
     </div>
+    {% if user.is_authenticated %}
+    <div class="form-inline my-2 my-lg-0">
+      <span class="text-white ml-3 p-2"> logged in as {{user.username}}</span>
+      <a href="{% url 'logout' %}"><button class="btn btn-info" > logout </button></a>
+    </div>
+      {% else %}
+    <div class="form-inline my-2 my-lg-0">
+      <a href="{% url 'login' %}"><button class="btn btn-success" >Login </button></a>
+      <a href="{% url 'register' %}"><button class="btn btn-primary" >Register </button></a>
+    </div>
+
+
+    {% endif %}
   </div>
+
+
 </nav>
    <div class="container">
        {% block content %}

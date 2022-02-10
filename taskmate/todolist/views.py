@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from .forms import TaskForm
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 from .models import TaskList
 
-
+@login_required
 def todoList(request):
     if request.method == 'POST':
         form = TaskForm(request.POST or None)
@@ -14,7 +16,11 @@ def todoList(request):
         return redirect('todoList')
 
     else:
+
         all_tasks = TaskList.objects.all()
+        paginator = Paginator(all_tasks, 10)
+        page = request.GET.get('page')
+        all_tasks = paginator.get_page(page)
         return render(request, 'todoList.html', {'tasks': all_tasks})
 
 
@@ -31,13 +37,13 @@ def about(request):
     }
     return render(request, 'About.html', context)
 
-
+@login_required
 def delete_task(request, task_id):
     task = TaskList.objects.get(pk = task_id)
     task.delete()
     return redirect("todoList")
 
-
+@login_required
 def edit_task(request, task_id):
     if request.method == 'POST':
         task = TaskList.objects.get(pk = task_id)
@@ -51,15 +57,19 @@ def edit_task(request, task_id):
         return render(request, 'edit.html', {'task': task})
 
 
-
+@login_required
 def complete_task(request, task_id):
     task = TaskList.objects.get(pk = task_id)
     task.done = True
     task.save()
     return redirect("todoList")
 
+@login_required
 def pending_task(request, task_id):
     task = TaskList.objects.get(pk = task_id)
     task.done = False
     task.save()
     return redirect("todoList")
+
+def home(request):
+    return render(request, 'index.html', {})
