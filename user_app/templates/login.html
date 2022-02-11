@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title> Task Manager - Login </title>
+{% endblock title %}
+
+
+{% block content %}
+
+
+    <div class="d-flex align-items-center flex-column mb-3">
+            <div>
+            <h5 class="mt-2 text-center"> Login Here <hr/> </h5>
+                {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible show" role="alert">
+                        {{message}}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                  {% endfor %}
+                {% endif %}
+            </div>
+
+            <div>
+
+                <form method = 'POST'  class="mt-1">
+
+                  {% csrf_token %}
+
+                  {{ form | crispy }}
+
+                  <button type="submit" class="btn btn-primary mt-3 text-center">login</button>
+
+                </form>
+            </div>
+    </div>
+
+
+{% endblock content %}
