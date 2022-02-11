@@ -40,12 +40,12 @@
     {% if user.is_authenticated %}
     <div class="form-inline my-2 my-lg-0">
       <span class="text-white ml-3 p-2"> logged in as {{user.username}}</span>
-      <a href="{% url 'logout' %}"><button class="btn btn-info" > logout </button></a>
+      <a href="{% url 'logout' %}"><button class="btn-sm btn-info " > logout </button></a>
     </div>
       {% else %}
     <div class="form-inline my-2 my-lg-0">
-      <a href="{% url 'login' %}"><button class="btn btn-success" >Login </button></a>
-      <a href="{% url 'register' %}"><button class="btn btn-primary" >Register </button></a>
+      <a href="{% url 'login' %}"><button class="btn-sm btn-success" >Login </button></a>
+      <a href="{% url 'register' %}"><button class="btn-sm btn-primary" >Register </button></a>
     </div>
 
 

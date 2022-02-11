@@ -40,14 +40,14 @@
         <tr class="table-success">
           <td> {{task.task}} </td>
           <td><a href="{% url 'pending_task' task.id %}"><button type="button" class="btn btn-secondary">Mark as Pending</button></a></td>
-          <td><a href="{% url 'edit_task' task.id %}"><button type="button" class="btn btn-warning">Warning</button></a></td>
+          <td><a href="{% url 'edit_task' task.id %}"><button type="button" class="btn btn-warning">Edit</button></a></td>
           <td><a href="{% url 'delete_task' task.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
         </tr>
       {% else %}
         <tr>
           <td> {{task.task}} </td>
           <td><a href="{% url 'complete_task' task.id %}"><button type="button" class="btn btn-secondary">Mark as Complete</button></a></td>
-          <td><a href="{% url 'edit_task' task.id %}"><button type="button" class="btn btn-warning">Warning</button></a></td>
+          <td><a href="{% url 'edit_task' task.id %}"><button type="button" class="btn btn-warning">Edit</button></a></td>
           <td><a href="{% url 'delete_task' task.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
         </tr>
       {% endif %}

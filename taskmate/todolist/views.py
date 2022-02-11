@@ -11,13 +11,15 @@ def todoList(request):
     if request.method == 'POST':
         form = TaskForm(request.POST or None)
         if form.is_valid():
-            form.save()
+            instance= form.save(commit=False)
+            instance.manage = request.user
+            instance.save()
             messages.success(request, ('New Task Added!'))
         return redirect('todoList')
 
     else:
 
-        all_tasks = TaskList.objects.all()
+        all_tasks = TaskList.objects.filter(manage= request.user)
         paginator = Paginator(all_tasks, 10)
         page = request.GET.get('page')
         all_tasks = paginator.get_page(page)
@@ -37,11 +39,16 @@ def about(request):
     }
     return render(request, 'About.html', context)
 
+
 @login_required
 def delete_task(request, task_id):
     task = TaskList.objects.get(pk = task_id)
-    task.delete()
+    if task.manage == request.user:
+        task.delete()
+    else:
+        messages.success(request, 'Not Authorized to Modify Value')
     return redirect("todoList")
+
 
 @login_required
 def edit_task(request, task_id):
@@ -60,16 +67,24 @@ def edit_task(request, task_id):
 @login_required
 def complete_task(request, task_id):
     task = TaskList.objects.get(pk = task_id)
-    task.done = True
-    task.save()
+    if task.manage == request.user:
+        task.done = True
+        task.save()
+    else:
+        messages.success(request, 'Not Authorized to Modify Value')
     return redirect("todoList")
+
 
 @login_required
 def pending_task(request, task_id):
     task = TaskList.objects.get(pk = task_id)
-    task.done = False
-    task.save()
+    if task.manage == request.user:
+        task.done = False
+        task.save()
+    else:
+        messages.success(request, 'Not Authorized to Modify Value')
     return redirect("todoList")
+
 
 def home(request):
     return render(request, 'index.html', {})

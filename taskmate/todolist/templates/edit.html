@@ -5,6 +5,7 @@
 {% endblock title %}
 
 {% block content %}
+{% if task.manage == request.user %}
     <br/>
     <br/>
   <form method="POST">
@@ -15,4 +16,8 @@
       </div>
       <button type="submit" class="btn btn-primary">Edit Task</button>
     </form>
+{% else %}
+<br/><br/>
+<h1> Access Restricted! You are not allowed.</h1>
+{% endif %}
 {% endblock content %}
