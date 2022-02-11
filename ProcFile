@@ -1,2 +1,0 @@
-web: gunicorn taskmate.wsgi --log-file -
-worker: ./bin/icka -forever
